@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    container_name: votedb
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: votes
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d/
+
+

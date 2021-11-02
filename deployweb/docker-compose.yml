@@ -1,0 +1,31 @@
+version: "3.1"
+   
+services:
+# So this is the web vote container - should be able to take votes in and put into queu
+  web:
+    build: .
+    ports:
+      - 8001:80
+    volumes:
+      - ./src:/usr/share/nginx/html
+
+# This is the db with all the elections in
+
+  electiondb:
+    image: postgres
+#    volumes:
+#      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+#  web:
+#    build: .
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/code
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+<TITLE>Vote here</TITLE>
+</HEAD>
+<BODY onload="hide()">
+
+Please fill in your email, postcode and how you would intend to vote in the next general and local election.
+
+<br>
+
+<form action="/vote/" method="post" >{% csrf_token %}
+
+  <label for="postcode">Postcode:</label><br>
+  <input type="text" id="postcode" name="postcode" value=""><br>
+<div id="secondXXX">
+  <label for="email">Email address:</label><br>
+  <input type="text" id="email" name="email" value=""><br>
+
+  <label for="constituency">Constituency:</label><br>
+  <div id="constituency"></div><br>
+
+  <label for="vote">Vote:</label><br>
+  <select id="vote" name="vote" onchange="showsubmit()">
+    <option value="0">- Select -</option>
+  </select>
+</div>
+
+<br>
+<div id="thirdXXX">
+  <input type="submit" value="Submit">
+</div>
+
+</form>
+
+
+
+<div id="stuffhereXXX">Put things here</div>
+   {% block content %}
+    {% endblock content %}
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+    {% block javascript %}
+  <script>
+    $("#postcode").change(function () {
+        var postcode = $(this).val();
+
+        $.ajax({
+          url: '/vote/info',
+          data: {
+            'p': postcode
+          },
+          dataType: 'json',
+          success: function (data) 
+          {
+            document.getElementById("constituency").innerHTML = data.constituency;
+
+            var s = '<option value="-1">Please select a party</option>';
+            $.each(data.parties, function(index, party)
+              {
+                s += '<option value="' + index + '">' + party + '</option>';
+              }
+            )
+            $("#vote").html(s);
+            var x = document.getElementById("second");
+            x.style.display = "block";
+          }
+        })
+    });
+    
+    function hide() {
+        var x = document.getElementById("second");
+        var y = document.getElementById("third");
+        x.style.display = "none";
+        y.style.display = "none";
+    }
+
+    function showsubmit() {
+        var y = document.getElementById("third");
+        y.style.display = "block";
+    }
+
+  </script>
+    {% endblock javascript %}
+</BODY>
