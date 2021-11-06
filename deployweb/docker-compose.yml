@@ -2,7 +2,7 @@ version: "3.1"
    
 services:
 # So this is the web vote container - should be able to take votes in and put into queu
-  web:
+  nginx:
     build: .
     ports:
       - 8001:80
@@ -20,12 +20,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-#  web:
-#    build: .
-#    command: python manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - .:/code
+  web:
+    build: flaskweb
+    expose:
+      - 5000
 #    ports:
-#      - "8000:8000"
-#    depends_on:
-#      - db
+#      - 5000:5000

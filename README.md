@@ -9,7 +9,9 @@ PROJECT1: Steps
 -----
 
     * Get basic website up
+    * Python Flask/uswgiug setup - https://gabimelo.medium.com/developing-a-flask-api-in-a-docker-container-with-uwsgi-and-nginx-e089e43ed90e
     - Store in git again
+    - Python to talk to database
 
     - Get DB to load itself on startup
 
