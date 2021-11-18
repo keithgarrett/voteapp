@@ -11,10 +11,10 @@ services:
 
 # This is the db with all the elections in
 
-  electiondb:
+  db:
     image: postgres
-#    volumes:
-#      - ./data/db:/var/lib/postgresql/data
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
