@@ -1,5 +1,11 @@
 # voteapp
 Vote Intention App
+    Webserver/DB/Flask App
+        Docker container -  docker-compose up
+        Loads init.sql file to start db
+        Flask app accesses DB and returns via AJAX calls
+
+        https://gabimelo.medium.com/developing-a-flask-api-in-a-docker-container-with-uwsgi-and-nginx-e089e43ed90e
 
 
 
@@ -8,12 +14,11 @@ Vote prog
 PROJECT1: Steps
 -----
 
-    * Get basic website up
-    * Python Flask/uswgiug setup - https://gabimelo.medium.com/developing-a-flask-api-in-a-docker-container-with-uwsgi-and-nginx-e089e43ed90e
-    - Store in git again
     - Python to talk to database
-
-    - Get DB to load itself on startup
+    - Submit vote
+    - Start up queue
+    - Put vote in queue
+    - Encrypt vote
 
     
 

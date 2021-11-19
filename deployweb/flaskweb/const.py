@@ -1,34 +1,36 @@
-from flask import Flask, abort
+from flask import Flask, abort, request
 from flask_restful import Api, Resource
 
 app = Flask(__name__)
-api = Api(app, prefix="/api/v1")
+api = Api(app, prefix="/elections")
 
-users = [
-    {"email": "john@gmail.com", "name": "John", "id": 1},
-    {"email": "george@gmail.com", "name": "george", "id": 2},
-    {"email": "nick@gmail.com", "name": "nick", "id": 3},
+consts = [
+    {"const": "Cambridge", "parties": {1:"Rebooting Democracy", 2: "Labour"}, "postcode": "CAM1"},
+    {"const": "Manchester", "parties": {"Labour, Green", "postcode": "MANC1"},
 ]
 
-def get_user_by_id(user_id):
-    for x in users:
-        if x.get("id") == int(user_id):
+def get_const_by_postcode(postcode):
+    for x in consts:
+        if x.get("postcode") == postcode:
             return x
 
-class Users(Resource):
+class Consts(Resource):
     def get(self):
-        return { 'users': users}
+        return { 'consts': consts}
 
-class User(Resource):
-    def get(self, id):
-        user = get_user_by_id(id)
-        if not user:
-            return {"error": "User not found"}
-        return user
+class Const(Resource):
+    #def get(self, postcode):
+    def get(self):
+        postcode = request.args.get('p');
+        const = get_const_by_postcode(postcode)
+        if not const:
+            return {"error": "Constituency not found"}
+        return const
 
 
-api.add_resource(User,'/user/<int:id>')
-api.add_resource(Users,'/users')
+api.add_resource(Const,'/postcode')
+#api.add_resource(Const,'/postcode/<postcode>')
+api.add_resource(Consts,'/consts')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

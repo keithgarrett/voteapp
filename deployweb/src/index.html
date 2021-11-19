@@ -5,9 +5,6 @@
 </HEAD>
 <BODY onload="hide()">
 
-Please fill in your email, postcode and how you would intend to vote in the next general and local election.
-
-<br>
 
 <form action="/vote/" method="post" >{% csrf_token %}
 
@@ -40,20 +37,24 @@ Please fill in your email, postcode and how you would intend to vote in the next
     {% endblock content %}
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
+Please fill in your email, postcode and how you would intend to vote in the next general and local election.
+
+<br>
     {% block javascript %}
   <script>
     $("#postcode").change(function () {
         var postcode = $(this).val();
 
         $.ajax({
-          url: '/vote/info',
+          url: '/elections/postcode',
           data: {
             'p': postcode
           },
           dataType: 'json',
+
           success: function (data) 
           {
-            document.getElementById("constituency").innerHTML = data.constituency;
+            document.getElementById("constituency").innerHTML = data.const
 
             var s = '<option value="-1">Please select a party</option>';
             $.each(data.parties, function(index, party)
