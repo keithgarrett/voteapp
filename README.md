@@ -14,11 +14,26 @@ Vote prog
 PROJECT1: Steps
 -----
 
-    - Python to talk to database
+    * Python to talk to database - http://clouddatafacts.com/heroku-connect/flask_psycopg2/flask_psycopg2_createapp.html
+    * Definte database fields
+        Postcodes -> Contituency
+        Constituency -> Elections
+        Elections -> List of parties
+
+        select postcode, constituency_code, constituency_name from postcodes LEFT OUTER  JOIN constituencies ON (postcodes.constituency = constituency_code) where postcode='CB43HR';
+
+    - DB load before web application
+        https://www.datanovia.com/en/lessons/docker-compose-wait-for-container-using-wait-tool/docker-compose-wait-for-mysql-container-to-be-ready/
+
+    Assuming only one election
+
     - Submit vote
     - Start up queue
     - Put vote in queue
+    - Validate input
+    - Check CSRF token
     - Encrypt vote
+    - Scan entry data
 
     
 

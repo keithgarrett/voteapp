@@ -6,7 +6,7 @@
 <BODY onload="hide()">
 
 
-<form action="/vote/" method="post" >{% csrf_token %}
+<form action="/vote" method="post" >{% csrf_token %}
 
   <label for="postcode">Postcode:</label><br>
   <input type="text" id="postcode" name="postcode" value=""><br>
@@ -15,7 +15,9 @@
   <input type="text" id="email" name="email" value=""><br>
 
   <label for="constituency">Constituency:</label><br>
-  <div id="constituency"></div><br>
+  <div id="constituency"></div>
+  <br>
+
 
   <label for="vote">Vote:</label><br>
   <select id="vote" name="vote" onchange="showsubmit()">
@@ -54,10 +56,10 @@ Please fill in your email, postcode and how you would intend to vote in the next
 
           success: function (data) 
           {
-            document.getElementById("constituency").innerHTML = data.const
+            document.getElementById("constituency").innerHTML = data.con + " - " + data.elections.name + '<input type="hidden" id="election_code" name="election_code" value="' + data.elections.code + '">';
 
             var s = '<option value="-1">Please select a party</option>';
-            $.each(data.parties, function(index, party)
+            $.each(data.elections.parties, function(index, party)
               {
                 s += '<option value="' + index + '">' + party + '</option>';
               }
